@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
 import ks43team01.dto.Spending;
 import ks43team01.mapper.ProfitAndLossMapper;
@@ -50,18 +51,21 @@ public class ProfitAndLossService {
 	/*
 	 * 매출 등록
 	 * */
-	public int addSales(Sales sales) {
+	public int addSales(String sessionId, Sales sales) {
+		
+		sales.setUserIdCode(sessionId);
 		
 		int result = profitAndLossMapper.addSales(sales);
 		
 		return result;
-		
 	}
 	
 	/*
 	 * 지출 등록
 	 * */
-	public int addSpending(Spending spending) {
+	public int addSpending(String sessionId, Spending spending) {
+		
+		spending.setUserIdCode(sessionId);
 		
 		int result = profitAndLossMapper.addSpending(spending);
 		
@@ -86,5 +90,27 @@ public class ProfitAndLossService {
 		List<Spending> spendingList = profitAndLossMapper.getSpendingList();
 		
 		return spendingList;
+	}
+	
+	/*
+	 * 손익 계정과목 등록
+	 * */
+	public int addAccount(String sessionId, Account account) {
+		
+		account.setUserIdCode(sessionId);
+		
+		int result = profitAndLossMapper.addAccount(account);
+		
+		return result;
+	}
+	
+	/*
+	 * 손익 계정과목 리스트
+	 * */
+	public List<Account> getAccountList(){
+		
+		List<Account> accountList = profitAndLossMapper.getAccountList();
+		
+		return accountList;
 	}
 }

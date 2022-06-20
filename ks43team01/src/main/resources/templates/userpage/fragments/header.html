@@ -29,7 +29,7 @@
                         <div class="col-xl-12">
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
-                                    <ul th:unless="${session.UID == null}" style="text-align: right;">     
+                                    <ul th:unless="${session.userIdCode == null}" style="text-align: right;">     
                                         <li >[[${session.UID}]]님 로그인중입니다.</li>
                                         <li>언제나 환영합니다^^</li>
                                     </ul>
@@ -39,10 +39,11 @@
                                     </ul>
                                 </div>
                                 <div class="header-info-right">
-                                    <ul>
+									<ul>
                                     	<li><a th:href="@{/default}">관리자화면전환 임시버튼</a></li>
                                        	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
                                        	<li th:unless="${session.UID == null}"><a th:href="@{/logout}"><i class="ti-user"></i>로그아웃</a></li>
+                                       	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
                                         <li th:unless="${session.UID != null}"><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
                                         <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
                                     </ul>
@@ -76,16 +77,21 @@
                                         </li>
                                         <li><a href="#">커뮤니티</a>
                                         <ul class="submenu">
-                                               <li><a href="#">자유게시판</a></li>
+                                               <li><a th:href="@{/freeBoardList}">자유게시판</a></li>
                                                 
                                         </ul>
                                         </li>
                                         <li><a href="#">고객센터</a>
                                          <ul class="submenu">
-                                                <li><a href="#">공지 사항</a></li>
-                                                <li><a href="#">자주하는 질문</a></li>
-                                                <li><a href="#">1:1 문의 게시판</a></li>
+                                                <li><a th:href="@{/noticeBoardList}">공지 사항</a></li>
+                                                <li><a th:href="@{/faqBoardList}">자주하는 질문</a></li>
+                                                <li><a th:href="@{/qnaBoardList}">1:1 문의 게시판</a></li>
                                             </ul>
+                                        </li>
+                                        <li><a href="#">임시리뷰</a>
+                                        <ul class="submenu">
+                                                <li><a th:href="@{/userpage/reviewUser/reviewUserList}">리뷰등록</a></li>
+                                        </ul>
                                         </li>
                                     </ul>
                                 </nav>
@@ -108,6 +114,6 @@
                 </div>
             </div>
         </div>
-     </header>
+        </div>
         <!-- Header End -->
   

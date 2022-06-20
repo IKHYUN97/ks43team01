@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
+import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLevelExp;
+import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.mapper.UserMapper;
@@ -25,6 +28,22 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/
+	public int modifyUserLevel(User user) {
+		
+		int result = userMapper.modifyUserLevel(user);
+		
+		return result;
+	}
+	
+	/*로그인시에 구매자회원 경험치 누적!!!*/
+	public int addUserLevelExp(UserLevelExp userLevelExp) {
+		
+		int result = userMapper.addUserLevelExp(userLevelExp);
+		
+		return result;
+	}
+	
 	
 	public int addUserInsert(User user) { //회원가입//
 		
@@ -37,6 +56,13 @@ public class UserService {
 		List<User> userList = userMapper.getAdminUserList();
 		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList);
 		return userList;
+	}
+	///admin로그인이력 테이블 출력
+	public List<UserLog> getLogDate() {
+		
+		List<UserLog> userLogDate= userMapper.getLogDate();
+		
+		return userLogDate;
 	}
 	
 	//비지니스 선택 탑카테고리 만들기
@@ -63,13 +89,60 @@ public class UserService {
 	public int addSellerBusiness(SellerBusiness sellerBusiness) {
 		
 		int result = userMapper.addSellerBusiness(sellerBusiness);
+	
 		return result;
 	}
-	//판매자 기술분야, 스킬, 자기소개 입력//
+	//판매자근무경력
 		public int addSellerCareer(SellerCareer sellerCareer) {
 			
 			int result = userMapper.addSellerCareer(sellerCareer);
+			
 			return result;
 	}
+		//경력없을시 null처리로
+		public int nullSellerCareer(SellerCareer sellerCareer) {
+			
+			int result = userMapper.nullSellerCareer(sellerCareer);
+	
+			return result;
+		}
+	//판매자의 학력증명사항//
+		public int SellerEducation(SellerEducation sellerEducation) {
 		
-}	
+			int result = userMapper.addSellerEducation(sellerEducation);
+			
+			return result;
+	}
+	//학력없을시에 nul처리///
+		public int NullSellerEducation(SellerEducation sellerEducation) {
+			
+			int result = userMapper.NullSellerEducation(sellerEducation);
+			
+			return result; 
+		}
+		
+		//로그인하는 모든 유저의 로그 테이블 쌓기//
+		public int addUserLog(UserLog userLog) {
+			
+			int result = userMapper.addUserLog(userLog);
+			
+			return result;
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
